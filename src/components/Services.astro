@@ -1,6 +1,6 @@
 ---
 import Icon from "./Icon.astro";
-import { services } from "../data/site";
+import { services, withBase } from "../data/site";
 ---
 
 <section id="services" aria-labelledby="services-heading" class="relative overflow-hidden bg-sage-300 py-16 sm:py-24">
@@ -24,7 +24,7 @@ import { services } from "../data/site";
           {service.image ? (
             <div class="h-28 w-full shrink-0 overflow-hidden rounded-xl bg-white p-1.5 ring-1 ring-black/5 sm:order-2 sm:size-28">
               <img
-                src={service.image}
+                src={withBase(service.image)}
                 alt={`${service.title} available for delivery or pickup on LAO`}
                 width="400"
                 height="400"

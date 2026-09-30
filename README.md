@@ -15,10 +15,26 @@ Everything renders to static HTML; the only client-side JavaScript is the ~30-li
 
 ```bash
 npm install
-npm run dev      # http://localhost:4321
-npm run build    # outputs to dist/
+npm run dev      # http://localhost:4321/about/
+npm run build    # outputs to dist/about/
 npm run preview  # serve the production build locally
 ```
+
+## Where it lives: `www.laogroceries.in/about/`
+
+The root of `www.laogroceries.in` is the customer web app (`app_customer_fe`).
+That app's Render service proxies `/about/*` to this site's Render service
+(`laogrocery-website.onrender.com`), so this site is built for the `/about`
+base path:
+
+- `base: '/about'` and `outDir: './dist/about'` in `astro.config.mjs`. The
+  nested outDir makes this service serve `/about/...` itself, so the proxy
+  forwards paths unchanged.
+- **Every file from `public/` must be referenced through `withBase()`** from
+  `src/data/site.ts`. A bare `"/logo.png"` resolves against the app at the
+  root and breaks.
+- `robots.txt` and `llms.txt` live in `app_customer_fe/web/`, because crawlers
+  only read them at the domain root.
 
 Requires Node 22+.
 
@@ -40,7 +56,6 @@ public/
   images/service-*.webp           Category photos for 5 of 6 service cards
   favicon.svg, favicon-32.png, favicon-64.png, apple-touch-icon.png
   og-image.png / og-image.svg   Social share preview image
-  robots.txt, llms.txt     Crawler + AI-agent guidance
   sitemap-index.xml (generated on build)
 ```
 
@@ -61,10 +76,9 @@ All copy, nav links, service categories, FAQ, and the nearby-cities list live in
 
 - Semantic HTML5 (`header`, `nav`, `main`, `section`, `footer`), a single `<h1>`, and a logical heading hierarchy throughout.
 - `Seo.astro` centralises `<title>`, meta description, canonical URL, Open Graph/Twitter tags, and JSON-LD (`GroceryStore` + `FAQPage` schema).
-- `public/robots.txt` explicitly allows common AI crawlers (GPTBot, ClaudeBot, Google-Extended) in addition to standard search bots.
-- `public/llms.txt` gives AI assistants/agents a plain-language summary of the site, services, and key pages (an emerging convention for LLM-readable sites).
+- `robots.txt` (allowing GPTBot, ClaudeBot, Google-Extended) and `llms.txt` are served from the domain root by `app_customer_fe`; `robots.txt` lists this site's sitemap.
 - FAQ content is real markup (`<details>/<summary>`, no JS) so it's crawlable and matches the FAQPage structured data.
-- `site.url` in `astro.config.mjs` and `src/data/site.ts` reads Render's auto-injected `RENDER_EXTERNAL_URL` at build time (falling back to a placeholder domain locally), so canonical URLs, the sitemap, and OG tags are correct against whatever `onrender.com` URL Render assigns — no manual edit needed until a custom domain replaces it.
+- The domain is hardcoded to `https://www.laogroceries.in` in `astro.config.mjs` and `src/data/site.ts`, so canonical URLs, the sitemap and OG tags always point at `https://www.laogroceries.in/about/` — never at the `onrender.com` address, which would otherwise be indexed as a duplicate.
 
 ## Deploying to Render
 
@@ -77,11 +91,11 @@ This repo is set up as a Render **Static Site**:
 | Publish Directory | `dist` |
 | Environment variable | `NODE_VERSION=22` (the app requires Node 22+) |
 
-Once a custom domain is attached in Render, either rely on Render's domain config as-is, or hardcode the final domain into `site.url` in both files above and remove the `RENDER_EXTERNAL_URL` fallback if you want it fixed regardless of environment.
+This service has **no custom domain** of its own: `www.laogroceries.in` belongs to the customer web app's service, which proxies `/about/*` here. Its own root (`laogrocery-website.onrender.com/`) has no page; the site is at `/about/`.
 
 ## Before going live
 
 - [ ] Add a real Snacks category photo (see Design notes above) and drop in a phone-login screenshot / footer aisle photo / accurate MP map if those become available.
 - [ ] Update `playStoreUrl`, `supportEmail`, `supportPhones`, and social links in `src/data/site.ts` with real values.
 - [ ] Replace the placeholder `storeLocations` addresses in `src/data/site.ts` with real pickup-store addresses.
-- [ ] Re-run `npm run build` and spot check `dist/` before deploying (any static host — Render, Netlify, Vercel, Cloudflare Pages, GitHub Pages — works as-is).
+- [ ] Re-run `npm run build` and spot check `dist/about/` before deploying.

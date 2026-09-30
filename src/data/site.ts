@@ -4,9 +4,9 @@ export const site = {
   tagline: "Groceries Delivered to Your Doorstep or Picked Up In-Store.",
   description:
     "LAO delivers discounted fresh groceries, dairy, snacks, household essentials, personal care and baby care to your doorstep — or ready for pickup from your nearest store — in Mandideep and other Tier 3 cities across Madhya Pradesh. Free delivery on your first order.",
-  // Render sets RENDER_EXTERNAL_URL automatically at build time. Falls back
-  // to the eventual production domain once that's pointed at the service.
-  url: process.env.RENDER_EXTERNAL_URL ?? "https://www.laogrocery.com",
+  // The brand's home, where the customer web app lives. This site is served
+  // under `${url}/about/`; see astro.config.mjs.
+  url: "https://www.laogroceries.in",
   playStoreUrl: "https://play.google.com/store",
   supportEmail: "support@laogrocery.com",
   supportPhones: ["+91-88398-50065", "+91-99930-75757"],
@@ -17,6 +17,11 @@ export const site = {
     linkedin: "https://linkedin.com/company/laogrocery",
   },
 };
+
+// Every file under public/ must go through this: the site is served under a
+// base path, so a bare "/logo.png" would resolve against the app at the root.
+export const withBase = (path: string) =>
+  `${import.meta.env.BASE_URL.replace(/\/$/, "")}${path}`;
 
 export const navLinks = [
   { label: "Home", href: "#home" },

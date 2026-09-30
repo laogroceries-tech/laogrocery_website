@@ -3,14 +3,15 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
-// Render sets RENDER_EXTERNAL_URL automatically at build time (e.g.
-// https://laogrocery-website.onrender.com). Falls back to the eventual
-// production domain once that's pointed at the service.
-const site = process.env.RENDER_EXTERNAL_URL ?? 'https://www.laogrocery.com';
-
-// https://astro.build/config
+// The customer web app owns the root of www.laogroceries.in and proxies
+// /about/* to this site's Render service. Building into dist/about/ (with the
+// publish directory still `dist`) makes the service serve the same paths the
+// proxy forwards, so no prefix has to be stripped on the way through.
 export default defineConfig({
-  site,
+  site: 'https://www.laogroceries.in',
+  base: '/about',
+  trailingSlash: 'always',
+  outDir: './dist/about',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

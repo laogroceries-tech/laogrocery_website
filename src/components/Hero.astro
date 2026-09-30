@@ -1,5 +1,5 @@
 ---
-import { site } from "../data/site";
+import { site, withBase } from "../data/site";
 ---
 
 <section class="relative overflow-hidden bg-sage-300">
@@ -31,7 +31,7 @@ import { site } from "../data/site";
 
     <div class="relative">
       <img
-        src="/images/hero-collage.webp"
+        src={withBase("/images/hero-collage.webp")}
         alt="Assortment of grocery staples available on LAO — atta, dal, rice, cooking oil, ghee, spices and more"
         width="900"
         height="580"

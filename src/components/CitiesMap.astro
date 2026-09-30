@@ -1,6 +1,6 @@
 ---
 import Icon from "./Icon.astro";
-import { nearbyCities, site } from "../data/site";
+import { nearbyCities, site, withBase } from "../data/site";
 ---
 
 <section id="cities" aria-labelledby="cities-heading" class="bg-sage-200 py-16 sm:py-24">
@@ -8,7 +8,7 @@ import { nearbyCities, site } from "../data/site";
     <div class="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
       <div class="mx-auto w-full max-w-lg">
         <img
-          src="/images/mp-map.webp"
+          src={withBase("/images/mp-map.webp")}
           alt="Map of Madhya Pradesh with LAO's launch city Mandideep pinned, alongside nearby cities Bhopal, Indore, Gwalior, Jabalpur, Ujjain and Dewas"
           width="1100"
           height="721"
