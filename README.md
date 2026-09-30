@@ -91,7 +91,7 @@ This repo is set up as a Render **Static Site**:
 | Publish Directory | `dist` |
 | Environment variable | `NODE_VERSION=22` (the app requires Node 22+) |
 
-This service has **no custom domain** of its own: `www.laogroceries.in` belongs to the customer web app's service, which proxies `/about/*` here. Its own root (`laogrocery-website.onrender.com/`) has no page; the site is at `/about/`.
+This service has **no custom domain** of its own: `www.laogroceries.in` belongs to the customer web app's service, which proxies `/about/*` here. Its own root (`laogrocery-website.onrender.com/`) is a redirect to `/about/`, written by `scripts/root-redirect.mjs` after the Astro build.
 
 ## Before going live
 
