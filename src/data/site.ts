@@ -1,16 +1,43 @@
 export const site = {
   name: "LAO",
-  fullName: "LAO Delivery",
-  tagline: "Groceries Delivered to Your Doorstep or Picked Up In-Store.",
+  fullName: "LAO Groceries",
+  tagline: "Discounted Groceries Delivered to Your Doorstep.",
   description:
-    "LAO delivers discounted fresh groceries, dairy, snacks, household essentials, personal care and baby care to your doorstep — or ready for pickup from your nearest store — in Mandideep and other Tier 3 cities across Madhya Pradesh. Free delivery on your first order.",
+    "Discounted groceries, dairy, snacks, household and baby care delivered to your doorstep in Mandideep, MP. Free delivery on orders above ₹149.",
   // The brand's home, where the customer web app lives. This site is served
   // under `${url}/about/`; see astro.config.mjs.
   url: "https://www.laogroceries.in",
-  playStoreUrl: "https://play.google.com/store",
-  supportEmail: "support@laogrocery.com",
+  // Empty until the app is listed on Google Play: every "Download App" button
+  // then sends people to the web app at `url` and the Play badge reads
+  // "Coming soon". Set it to the listing (…/store/apps/details?id=…) to switch.
+  playStoreUrl: "",
+  // Delivery is free above this order value. It must match what checkout
+  // charges (app_admin's customer-orders function), or the site promises
+  // something the app does not do.
+  freeDeliveryAbove: 149,
+  // Customers write to support@; partners, suppliers and press to contact@.
+  supportEmail: "support@laogroceries.in",
+  businessEmail: "contact@laogroceries.in",
   supportPhones: ["+91-88398-50065", "+91-99930-75757"],
+  supportHours: "9 AM – 9 PM, every day",
   foundingCity: "Mandideep, Madhya Pradesh",
+  // The company that operates LAO. D&B (D-U-N-S) and the app stores check the
+  // site against these, so keep them identical to the MCA record.
+  legal: {
+    name: "ETI TECH PRIVATE LIMITED",
+    cin: "U47912MP2026PTC087197",
+    registeredOffice: "SR. L.I.G-60, Amrawati South, Near AIIMS, Housing Board, Bhopal, Madhya Pradesh 462043, India",
+    address: {
+      street: "SR. L.I.G-60, Amrawati South, Near AIIMS, Housing Board",
+      locality: "Bhopal",
+      region: "Madhya Pradesh",
+      postalCode: "462043",
+      country: "IN",
+    },
+    // Required by the Consumer Protection (E-Commerce) Rules, 2020.
+    grievanceOfficer: "Ashutosh Sharma",
+  },
+  // Placeholders until the accounts are created — update the handles then.
   social: {
     instagram: "https://instagram.com/laogrocery",
     facebook: "https://facebook.com/laogrocery",
@@ -18,23 +45,29 @@ export const site = {
   },
 };
 
+// The main call to action: the Play listing once there is one, the web app
+// until then.
+export const primaryCta = site.playStoreUrl
+  ? { href: site.playStoreUrl, label: "Download App" }
+  : { href: site.url, label: "Order Online" };
+
 // Every file under public/ must go through this: the site is served under a
 // base path, so a bare "/logo.png" would resolve against the app at the root.
 export const withBase = (path: string) =>
   `${import.meta.env.BASE_URL.replace(/\/$/, "")}${path}`;
 
 export const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Our Services", href: "#services" },
-  { label: "Why LAO", href: "#why-lao" },
-  { label: "Cities", href: "#cities" },
-  { label: "Contact Us", href: "#contact" },
+  { label: "Home", href: withBase("/#home") },
+  { label: "Our Services", href: withBase("/#services") },
+  { label: "Why LAO", href: withBase("/#why-lao") },
+  { label: "Where We Deliver", href: withBase("/#cities") },
+  { label: "Contact Us", href: withBase("/#contact") },
 ];
 
 export const trustBadges = [
   { icon: "truck", title: "Fast Delivery" },
   { icon: "percent", title: "Discounted Home Delivery" },
-  { icon: "store", title: "Pickup From Store" },
+  { icon: "store", title: "Store Pickup Coming Soon" },
   { icon: "pin", title: "Now Available in Mandideep" },
 ];
 
@@ -42,8 +75,8 @@ export const services = [
   {
     icon: "carrot",
     image: "/images/service-fresh-product.webp",
-    title: "Fresh Product",
-    description: "All organic and fresh.",
+    title: "Fresh Produce",
+    description: "Fruits and vegetables, picked fresh.",
     accent: "brand",
   },
   {
@@ -70,7 +103,7 @@ export const services = [
     icon: "spray",
     image: "/images/service-household-goods.webp",
     title: "Household Goods",
-    description: "Cleaning, Sanitizing, makeup and More.",
+    description: "Cleaning, Laundry, Kitchen and More.",
     accent: "sand",
   },
   {
@@ -87,7 +120,7 @@ export const whyLaoPoints = [
     number: 1,
     title: "Best Prices",
     description:
-      "No hidden charges. Home delivery is always discounted versus your local store, and pickup orders skip delivery fees entirely.",
+      "No hidden charges. Home delivery is priced below your local store, and every fee is shown before you pay.",
   },
   {
     number: 2,
@@ -104,39 +137,31 @@ export const whyLaoPoints = [
   {
     number: 4,
     title: "9AM-9PM Support",
-    description: "Phone, chat, WhatsApp. Issues resolved within minutes.",
+    description: "Call or email us any day between 9 AM and 9 PM.",
   },
 ];
 
-export const nearbyCities = [
-  "Bhopal",
-  "Indore",
-  "Gwalior",
-  "Jabalpur",
-  "Ujjain",
-  "Dewas",
-];
+export const nearbyTowns = ["Sehore", "Vidisha"];
 
-// Placeholder pickup points — replace with real store addresses once
-// confirmed. All three are in Mandideep, the founding city, until pickup
-// expands to nearby cities alongside delivery.
+// No pickup store is open yet, so this is one "coming soon" entry rather than
+// invented addresses. Replace it with real stores as they open.
 export const storeLocations = [
   {
-    name: "LAO Store — Old Bus Stand Road",
-    area: "Near Bus Stand, Mandideep, MP 462046",
+    name: "Pickup points in Mandideep",
+    area: "Coming soon",
   },
-  {
-    name: "LAO Store — Industrial Area Phase II",
-    area: "Sector B, Mandideep, MP 462046",
-  },
-  {
-    name: "LAO Store — Housing Board Colony",
-    area: "Main Road, Mandideep, MP 462046",
-  },
+];
+
+// The policy pages under src/pages/ (shell: src/layouts/LegalPage.astro).
+export const legalLinks = [
+  { label: "Privacy Policy", href: withBase("/privacy/") },
+  { label: "Terms of Service", href: withBase("/terms/") },
+  { label: "Refund & Cancellation Policy", href: withBase("/refunds/") },
 ];
 
 export const footerLinks = {
-  support: [
+  // Categories, each linking to the "Our Services" section.
+  shop: [
     "Groceries",
     "Snacks",
     "Cold Drinks",
@@ -148,12 +173,13 @@ export const footerLinks = {
     "Baby Care",
     "Ready-to-Eat",
   ],
-  company: [
-    { label: "Help Centre", href: "#contact" },
-    { label: "Track Order", href: "#" },
-    { label: "Returns & Refunds", href: "#" },
-    { label: "FAQs", href: "#faq" },
-    { label: "Report an Issue", href: "#contact" },
+  // Customer help. There is no "Track Your Order" link: the web app has no
+  // orders URL to link to, so orders are tracked inside the app after sign-in.
+  help: [
+    { label: "Order Online", href: site.url },
+    { label: "FAQs", href: withBase("/#faq") },
+    { label: "Contact Us", href: withBase("/#contact") },
+    { label: "Report an Issue", href: `mailto:${site.supportEmail}?subject=${encodeURIComponent("Issue with my LAO order")}` },
   ],
 };
 
@@ -161,26 +187,26 @@ export const faqs = [
   {
     question: "Which cities does LAO deliver to?",
     answer:
-      "LAO started in Mandideep, Madhya Pradesh and is expanding to nearby Tier 3 cities and towns across the state, bringing metro-quality grocery delivery to communities that are often left behind.",
+      "LAO delivers in Mandideep, Madhya Pradesh today. We plan to expand to nearby towns across the state next.",
   },
   {
-    question: "Is my first order really free?",
+    question: "Is there a delivery fee?",
     answer:
-      "Yes. Every new customer gets free delivery on their first order, with no minimum order value and no hidden charges.",
+      `Delivery is free on orders above ₹${site.freeDeliveryAbove}. Every fee on your order is shown in the app before you pay — there are no hidden charges.`,
   },
   {
     question: "Can I pick up my order instead of getting it delivered?",
     answer:
-      "Yes. Every order can either be delivered to your doorstep at a discounted price, or reserved for pickup at your nearest LAO store — whichever suits you better.",
+      "Pickup is coming soon. Once our pickup points in Mandideep open, you will be able to choose pickup instead of delivery when you place an order.",
   },
   {
     question: "What can I order from LAO?",
     answer:
-      "Fresh produce, dairy, snacks, household goods, personal care and beauty products, and baby care essentials — everything your household needs, delivered fresh and fast.",
+      "Fresh produce, dairy, snacks, household goods, personal care and beauty products, and baby care essentials.",
   },
   {
     question: "How do I get support if something goes wrong with my order?",
     answer:
-      "Our support team is available 9AM-9PM over phone, chat and WhatsApp, and most issues are resolved within minutes.",
+      `Call us on ${site.supportPhones.join(" or ")} or email ${site.supportEmail}, any day between 9 AM and 9 PM.`,
   },
 ];

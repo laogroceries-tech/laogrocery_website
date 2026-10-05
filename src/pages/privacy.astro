@@ -1,0 +1,119 @@
+---
+import LegalPage from "../layouts/LegalPage.astro";
+import { site } from "../data/site";
+---
+
+<LegalPage
+  title="Privacy Policy"
+  description="What personal information LAO Groceries collects, why, who it is shared with, how long it is kept, and how to access, correct or delete it."
+  updated="6 October 2026"
+  contactNumber={11}
+>
+  <p>
+    This policy explains what personal information we collect when you use {site.name}, why we collect it,
+    who we share it with and the choices you have. We process personal data in line with the Digital
+    Personal Data Protection Act, 2023 and other applicable Indian law. By creating an account or placing
+    an order you agree to this policy.
+  </p>
+
+  <h2>1. Information we collect</h2>
+  <h3>Information you give us</h3>
+  <ul>
+    <li><strong>Account details</strong> — your mobile number (used to sign in with a one-time code; we do not use passwords) and your name.</li>
+    <li><strong>Delivery addresses</strong> — address lines, locality, landmark, city, state and PIN code, the recipient’s name and phone number, and the address label you choose (for example “Home”).</li>
+    <li><strong>Orders</strong> — the items you buy, prices, fees, delivery or pickup choice, order status, cancellations and refunds.</li>
+    <li><strong>Support messages</strong> — what you tell us when you contact customer support, including photos you send about an order.</li>
+  </ul>
+  <h3>Information collected automatically</h3>
+  <ul>
+    <li><strong>Location</strong> — with your permission, your device’s location, to find your address and check that we deliver there. You can turn this off in your device settings and type your address instead.</li>
+    <li><strong>Device and usage information</strong> — device type, operating system, app version, and a notification token if you allow notifications; and technical data such as a scrambled (hashed) form of your IP address, which we use to prevent misuse of sign-in codes.</li>
+    <li><strong>Stored on your device</strong> — the app and website keep your sign-in session, cart, language and saved locations on your device so you stay signed in and your cart is kept.</li>
+  </ul>
+  <h3>Payment information</h3>
+  <p>
+    Online payments are processed by our payment partner (Razorpay). Your card, UPI or bank details are
+    entered with and handled by them; we do not see or store your full card number, CVV or UPI PIN. We
+    receive and keep the payment status, amount, method and transaction reference.
+  </p>
+
+  <h2>2. How we use your information</h2>
+  <ul>
+    <li>to create and secure your account, and to sign you in with one-time codes;</li>
+    <li>to take, pack, deliver and support your orders, including calling you about a delivery;</li>
+    <li>to process payments, refunds and cash-on-delivery collections;</li>
+    <li>to send order updates by SMS or app notification;</li>
+    <li>to answer your questions and resolve complaints;</li>
+    <li>to prevent fraud and misuse, and to keep the service secure;</li>
+    <li>to understand what customers buy in each area, so we can stock the right products and improve the service;</li>
+    <li>to send you offers, only if you have not opted out (you can opt out at any time); and</li>
+    <li>to meet legal, tax and accounting obligations.</li>
+  </ul>
+
+  <h2>3. Sharing your information</h2>
+  <p>We do not sell your personal information. We share only what each party needs:</p>
+  <ul>
+    <li><strong>Delivery partners</strong> — your name, phone number, delivery address and location, to deliver your order.</li>
+    <li><strong>Partner stores</strong> — the items in your order, to pack it.</li>
+    <li><strong>Payment partners</strong> (such as Razorpay) — to process payments and refunds.</li>
+    <li><strong>Service providers</strong> who work on our behalf under contract — our SMS provider (to send sign-in codes and order updates), cloud hosting and database providers, and Google Firebase (to deliver app notifications).</li>
+    <li><strong>Authorities</strong> — when required by law, court order or government request, or to protect the rights and safety of our customers, staff and partners.</li>
+    <li><strong>A successor business</strong> — if {site.legal.name} is merged or acquired, subject to this policy.</li>
+  </ul>
+
+  <h2>4. How long we keep your information</h2>
+  <ul>
+    <li>Account and address details: while your account is active, and deleted or anonymised after you ask us to delete your account.</li>
+    <li>Order and payment history: 2 years from the date of the order, then deleted or anonymised.</li>
+    <li>Tax invoices and accounting records: only for the period Indian tax law requires, even after account deletion.</li>
+    <li>Sign-in codes: they expire within minutes and are not kept beyond what is needed to prevent misuse.</li>
+    <li>Support messages: up to 2 years after the issue is closed, unless needed longer for a dispute.</li>
+  </ul>
+
+  <h2>5. Your rights and choices</h2>
+  <p>Under the Digital Personal Data Protection Act, 2023 you can:</p>
+  <ul>
+    <li>ask for a summary of the personal data we hold about you and how we use it;</li>
+    <li>correct or update your details (you can edit your name and addresses in the app);</li>
+    <li>ask us to delete your personal data, subject to the records we must keep by law;</li>
+    <li>withdraw consent you have given, for example for location access or offers;</li>
+    <li>nominate a person to exercise these rights on your behalf in case of death or incapacity; and</li>
+    <li>raise a complaint with our Grievance Officer, and then with the Data Protection Board of India.</li>
+  </ul>
+  <p>To use any of these rights, email <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a> from, or mentioning, your registered mobile number.</p>
+
+  <h2 id="delete-account">6. Deleting your account</h2>
+  <p>
+    To delete your {site.name} account and its personal data, email{" "}
+    <a href={`mailto:${site.supportEmail}?subject=${encodeURIComponent("Delete my LAO account")}`}>{site.supportEmail}</a>{" "}
+    with the subject “Delete my LAO account” and your registered mobile number. Our support team will confirm the request
+    with a one-time code sent to that number and complete the deletion within 30 days. Your name, addresses
+    and saved preferences are deleted; order and payment records are kept only as long as the law requires
+    (see section 4). Any open order or refund is completed first.
+  </p>
+
+  <h2>7. Security</h2>
+  <p>
+    We protect your information with encrypted connections (HTTPS), access controls that limit our staff and
+    partners to the data their role needs, and short-lived sign-in codes. No system is completely secure; if a
+    personal data breach affects you, we will inform you and the authorities as the law requires.
+  </p>
+
+  <h2>8. Children</h2>
+  <p>{" "}
+    {site.name} is meant for adults. You must be 18 or older to create an account. We do not knowingly collect
+    personal data from children; if you believe a child has given us their data, contact us and we will delete it.
+  </p>
+
+  <h2>9. Where your data is stored</h2>
+  <p>
+    Our service providers may store or process data on servers in or outside India. Wherever it is processed,
+    we require them to protect it to the standard described in this policy and as Indian law requires.
+  </p>
+
+  <h2>10. Changes to this policy</h2>
+  <p>
+    We may update this policy from time to time. We will show the new “Last updated” date here and, for
+    significant changes, tell you in the app or by SMS before they take effect.
+  </p>
+</LegalPage>

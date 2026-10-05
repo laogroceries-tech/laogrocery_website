@@ -4,6 +4,8 @@ import { withBase } from "../data/site";
 interface Props {
   class?: string;
   imgClass?: string;
+  // "light" sits on dark backgrounds: the same logo on a white badge, since
+  // the green artwork has too little contrast against the dark footer.
   variant?: "dark" | "light";
 }
 const { class: className = "", imgClass, variant = "dark" } = Astro.props;
@@ -12,15 +14,14 @@ const { class: className = "", imgClass, variant = "dark" } = Astro.props;
 {
   variant === "light" ? (
     <a
-      href="#home"
-      class:list={["inline-flex items-center gap-1.5 text-2xl font-extrabold tracking-tight text-white", className]}
+      href={withBase("/")}
+      class:list={["inline-flex items-center rounded-xl bg-white px-3 py-2", className]}
       aria-label="LAO — home"
     >
-      LAO
-      <img src={withBase("/logo-mark-white.png")} alt="" class={imgClass ?? "size-7"} width="28" height="28" aria-hidden="true" />
+      <img src={withBase("/logo.png")} alt="LAO" class={imgClass ?? "h-8 w-auto"} width="273" height="102" />
     </a>
   ) : (
-    <a href="#home" class:list={["inline-flex items-center", className]} aria-label="LAO — home">
+    <a href={withBase("/")} class:list={["inline-flex items-center", className]} aria-label="LAO — home">
       <img src={withBase("/logo.png")} alt="LAO" class={imgClass ?? "h-8 w-auto sm:h-9"} width="273" height="102" />
     </a>
   )

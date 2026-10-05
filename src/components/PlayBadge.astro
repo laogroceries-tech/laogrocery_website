@@ -1,0 +1,27 @@
+---
+import Icon from "./Icon.astro";
+import { site } from "../data/site";
+
+// The "Google Play" badge. Until `site.playStoreUrl` is set it is plain text
+// reading "Coming soon on", not a link to a listing that does not exist.
+interface Props {
+  class?: string;
+  captionClass?: string;
+  size?: "sm" | "base";
+}
+
+const { class: className = "", captionClass = "text-neutral-300", size = "sm" } = Astro.props;
+const listed = Boolean(site.playStoreUrl);
+const Tag = listed ? "a" : "span";
+---
+
+<Tag
+  href={listed ? site.playStoreUrl : undefined}
+  class:list={["inline-flex items-center gap-2 rounded-lg text-white", className, !listed && "opacity-80"]}
+>
+  <Icon name="play" class={size === "base" ? "size-6 text-brand-300" : "size-5 text-brand-300"} />
+  <span class="text-left leading-tight">
+    <span class:list={["block text-[10px] uppercase", captionClass]}>{listed ? "Get it on" : "Coming soon on"}</span>
+    <span class:list={["block font-semibold", size === "base" ? "text-base" : "text-sm"]}>Google Play</span>
+  </span>
+</Tag>

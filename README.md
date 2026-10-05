@@ -1,6 +1,6 @@
-# LAO Delivery — Marketing Website
+# LAO Groceries — Marketing Website
 
-A static, SEO/LLM-friendly marketing site for **LAO**, a discounted grocery delivery-and-pickup app for Tier 3 Indian cities (launching in Mandideep, Madhya Pradesh). Built from the Figma prototypes for the mobile and web experiences, with the web nav/layout patterns back-ported into the mobile view so small screens aren't missing navigation or the cities/map content.
+A static, SEO/LLM-friendly marketing site for **LAO**, a discounted grocery delivery app (store pickup coming soon) for Tier 3 Indian cities (launching in Mandideep, Madhya Pradesh). Built from the Figma prototypes for the mobile and web experiences, with the web nav/layout patterns back-ported into the mobile view so small screens aren't missing navigation or the cities/map content.
 
 ## Stack
 
@@ -43,15 +43,19 @@ Requires Node 22+.
 ```
 src/
   components/     One component per section (Header, Hero, TrustBar, Services,
-                   CityFit, CitiesMap, Faq, Cta, Footer, Logo, Icon, Seo)
+                   CityFit, CitiesMap, Faq, Cta, Footer, Logo, Icon, PlayBadge, Seo)
   data/site.ts     Single source of truth for nav links, services, footer links,
-                   FAQ copy, city list — edit copy here, not inside components
+                   FAQ copy, town list, company/legal details — edit copy here,
+                   not inside components
   layouts/Layout.astro
-  pages/index.astro   Assembles the sections in order
+  layouts/LegalPage.astro   Shell for the policy pages (title, intro, contact/Grievance Officer section)
+  pages/index.astro   Assembles the sections in order (/about/)
+  pages/privacy.astro, terms.astro, refunds.astro   Policy pages (/about/privacy/ etc.).
+                   Privacy section 6 (#delete-account) is the account-deletion URL
+                   Google Play asks for.
   styles/global.css   Tailwind import + brand color/font tokens (@theme block)
 public/
   logo.png                 Primary wordmark (light backgrounds / header)
-  logo-mark-white.png      White silhouette of the basket mark (dark backgrounds / footer)
   images/hero-collage.webp        Hero product collage photo
   images/service-*.webp           Category photos for 5 of 6 service cards
   favicon.svg, favicon-32.png, favicon-64.png, apple-touch-icon.png
@@ -61,16 +65,21 @@ public/
 
 ## Content
 
-All copy, nav links, service categories, FAQ, and the nearby-cities list live in **`src/data/site.ts`**. Update the site name, Play Store URL, support email/phone, or social links there as well.
+All copy, nav links, service categories, FAQ, and the nearby-towns list (`nearbyTowns`) live in **`src/data/site.ts`**. Update the site name, Play Store URL, free-delivery threshold, support/business emails, phones, Grievance Officer (shown on the policy pages) or social links there as well. While `playStoreUrl` is empty, every "Download App" button reads "Order Online" and links to the web app, and the Google Play badge reads "Coming soon on" with no link (`primaryCta`, `PlayBadge.astro`).
 
 ## Design notes
 
 - Faithfully follows both Figma prototypes (mobile: `node-id=127-102`, web: `node-id=116-150`). The mobile prototype in Figma had no header navigation; this build adds the same nav (as a slide-down drawer) to mobile so the experience is consistent across breakpoints, per the brief.
 - The Madhya Pradesh "This Is Where LAO Begins" map is a real illustrated map graphic (`public/images/mp-map.webp`), background-removed from a supplied asset — not a hand-drawn placeholder.
 - The hero product collage and 5 of the 6 "Our Services" category photos (Fresh Product, Dairy, Household Goods, Beauty, Baby Care) are real photography, optimised to WebP and stored in `public/images/`. **Snacks** still has no source photo, so it falls back to the original icon tile — drop a `service-snacks.webp` into `public/images/` and set `image: "/images/service-snacks.webp"` on that entry in `src/data/site.ts` once one's available (`Services.astro` already prefers `service.image` over the icon when present).
-- The phone "Log In" screen in the "Built for Your City" section and the footer's photographic aisle backdrop are still coded HTML/CSS or a colour treatment rather than real screenshots/photography — swap them in via `public/` + `<img>`/`background-image` whenever those assets are available.
-- Delivery vs. pickup and the "discounted home delivery" positioning are called out in the hero, the trust badges, the "Best Prices" point, an FAQ entry, and the footer's Store Locations column — see `whyLaoPoints`, `trustBadges`, `faqs`, and `storeLocations` in `src/data/site.ts`.
-- **`storeLocations`** in `src/data/site.ts` (rendered in the footer) are placeholder addresses in Mandideep — replace with real pickup-store addresses before launch.
+- The phone "Sign In" screen (phone number + SMS code, matching the real app) in the "Built for Your City" section and the footer's photographic aisle backdrop are still coded HTML/CSS or a colour treatment rather than real screenshots/photography — swap them in via `public/` + `<img>`/`background-image` whenever those assets are available.
+- The "discounted home delivery" positioning is called out in the hero, the "Best Prices" point and the FAQ. Store pickup is not open yet, so it appears only as "coming soon" (trust badge, hero copy, FAQ, footer Pickup Points) — see `whyLaoPoints`, `trustBadges`, `faqs`, and `storeLocations` in `src/data/site.ts`.
+- **`site.freeDeliveryAbove`** (₹149) is the only delivery-fee promise on the site (hero, CTA, FAQ, meta description). It must match the delivery fee the backend charges at checkout (`app_admin`'s `customer-orders` function). Today checkout charges a flat delivery fee on every order; it is being changed to free delivery above ₹149, and the site assumes that change has shipped.
+- The footer's contact row splits **Customer Support** (`support@`, phones, hours — the `#contact` anchor), **Business Enquiries** (`contact@`) and **Pickup Points**. The **Grievance Officer** (`site.legal.grievanceOfficer`), which the Consumer Protection (E-Commerce) Rules, 2020 require an Indian e-commerce site to name, is in the contact section of each policy page.
+- The footer's **Help** column has no "Track Your Order" link on purpose: the web app has no orders URL to deep-link to.
+- The footer uses the same `logo.png` as the header, on a white badge (`<Logo variant="light">`), because the green artwork does not show on the dark footer.
+- **`site.legal`** in `src/data/site.ts` (rendered in the footer — "A venture of …" under the logo, and the CIN and registered office in the bottom bar — and as `legalName` in the JSON-LD) names the operating company, ETI TECH PRIVATE LIMITED, with its CIN and registered office. D&B (D-U-N-S) and the Apple/Google developer programs check the site against the company's MCA record, so keep these identical to it. `registeredOffice` and `address` (used in the JSON-LD) are the full registered office address.
+- **`storeLocations`** in `src/data/site.ts` (rendered in the footer) is a single "Pickup points in Mandideep — Coming soon" entry. Replace it with real pickup-store addresses as stores open.
 
 ## SEO / LLM-friendliness
 
@@ -95,7 +104,7 @@ This service has **no custom domain** of its own: `www.laogroceries.in` belongs 
 
 ## Before going live
 
-- [ ] Add a real Snacks category photo (see Design notes above) and drop in a phone-login screenshot / footer aisle photo / accurate MP map if those become available.
-- [ ] Update `playStoreUrl`, `supportEmail`, `supportPhones`, and social links in `src/data/site.ts` with real values.
-- [ ] Replace the placeholder `storeLocations` addresses in `src/data/site.ts` with real pickup-store addresses.
+- [ ] Add a real Snacks category photo (see Design notes above) and drop in a phone-login screenshot / footer aisle photo / accurate MP map if those become available. The current `mp-map.webp` still pins Bhopal, Indore, Gwalior, Jabalpur, Ujjain and Dewas; replace it with one pinning Mandideep, Sehore and Vidisha.
+- [ ] Set `playStoreUrl` in `src/data/site.ts` once the app is listed on Google Play, and update `site.social` once the Instagram/Facebook/LinkedIn accounts exist (the handles there are placeholders).
+- [ ] Replace the "coming soon" `storeLocations` entry in `src/data/site.ts` with real pickup-store addresses once they open.
 - [ ] Re-run `npm run build` and spot check `dist/about/` before deploying.

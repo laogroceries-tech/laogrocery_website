@@ -4,34 +4,62 @@ import { site, faqs, withBase } from "../data/site";
 interface Props {
   title?: string;
   description?: string;
+  // For pages not ready for search results (e.g. placeholder policy text).
+  noindex?: boolean;
+  // The FAQ structured data describes the home page's FAQ section only.
+  faq?: boolean;
 }
 
 const {
-  title = `${site.fullName} — Fresh Groceries at Your Doorstep`,
+  title = `${site.fullName} — Grocery Delivery in Mandideep, MP`,
   description = site.description,
+  noindex = false,
+  faq = true,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, site.url);
 
+// An online store run by a company, not a walk-in shop: GroceryStore/
+// LocalBusiness would make Google expect a street address customers visit.
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "GroceryStore",
+  "@type": "OnlineStore",
   name: site.fullName,
+  alternateName: site.name,
+  legalName: site.legal.name,
   url: site.url,
+  logo: new URL(withBase("/logo.png"), site.url).href,
   description: site.description,
+  email: site.supportEmail,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.legal.address.street,
+    addressLocality: site.legal.address.locality,
+    addressRegion: site.legal.address.region,
+    postalCode: site.legal.address.postalCode,
+    addressCountry: site.legal.address.country,
+  },
   areaServed: {
     "@type": "City",
     name: site.foundingCity,
   },
   sameAs: Object.values(site.social),
-  contactPoint: site.supportPhones.map((phone) => ({
-    "@type": "ContactPoint",
-    contactType: "customer support",
-    email: site.supportEmail,
-    telephone: phone,
-    areaServed: "IN",
-    availableLanguage: ["English", "Hindi"],
-  })),
+  contactPoint: [
+    ...site.supportPhones.map((phone) => ({
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      email: site.supportEmail,
+      telephone: phone,
+      areaServed: "IN",
+      availableLanguage: ["English", "Hindi"],
+    })),
+    {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      email: site.businessEmail,
+      areaServed: "IN",
+    },
+  ],
 };
 
 const faqSchema = {
@@ -54,7 +82,7 @@ const faqSchema = {
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta charset="utf-8" />
-<meta name="robots" content="index, follow" />
+<meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
 <meta name="theme-color" content="#245420" />
 
 <!-- Open Graph -->
@@ -80,4 +108,4 @@ const faqSchema = {
 <link rel="apple-touch-icon" sizes="180x180" href={withBase("/apple-touch-icon.png")} />
 
 <script type="application/ld+json" is:inline set:html={JSON.stringify(organizationSchema)} />
-<script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+{faq && <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />}

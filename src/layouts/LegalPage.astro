@@ -1,0 +1,104 @@
+---
+import Layout from "./Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site, legalLinks } from "../data/site";
+
+// Shared shell for the policy pages: the page writes its sections (numbered
+// <h2>s) into the slot; this adds the title, who the policy is from, and the
+// contact / Grievance Officer section, which is always numbered last.
+interface Props {
+  title: string;
+  description: string;
+  updated: string;
+  // Number of the closing contact section, i.e. the page's section count + 1.
+  contactNumber: number;
+}{" "}
+
+const { title, description, updated, contactNumber } = Astro.props;
+---
+
+<Layout title={`${title} — ${site.fullName}`} description={description} faq={false}>
+  <Header />
+  <main id="main" class="bg-white py-14 sm:py-20">
+    <article class="legal mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-extrabold text-brand-900 sm:text-4xl">{title}</h1>
+      <p class="mt-2 text-sm text-neutral-500">Last updated: {updated}</p>
+
+      <p>
+        This policy applies to {site.fullName} — the website {site.url.replace("https://", "")} and the{" "}
+        {site.name} app — operated by {site.legal.name} (CIN: {site.legal.cin}), referred to here as
+        “{site.name}”, “we”, “us” or “our”.
+      </p>
+
+      <slot />
+
+      <h2>{contactNumber}. Contact and Grievance Officer</h2>
+      <p>
+        For any question or complaint, contact customer support at{" "}
+        <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a> or{" "}
+        {site.supportPhones.map((phone, i) => (
+          <>
+            {i > 0 && " / "}{" "}
+            <a href={`tel:${phone.replace(/[^+\d]/g, "")}`} class="whitespace-nowrap">{phone}</a>
+          </>
+        ))}{" "}
+        ({site.supportHours}).
+      </p>
+      <p>
+        If your complaint is not resolved, you can write to our Grievance Officer. We acknowledge every
+        complaint within 48 hours and aim to resolve it within one month of receiving it.
+      </p>
+      <address class="not-italic">
+        <span class="block font-semibold text-brand-900">{site.legal.grievanceOfficer}, Grievance Officer</span>
+        <span class="block">{site.legal.name}</span>
+        <span class="block">{site.legal.registeredOffice}</span>
+        <span class="block"><a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a></span>
+      </address>
+
+      <nav aria-label="Policies" class="mt-12 border-t border-sage-200 pt-6">
+        <ul class="!mt-0 !list-none !pl-0 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+          {legalLinks.map((link) => (
+            <li class="!mt-0"><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </article>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal :global(h2) {
+    margin-top: 2.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-brand-900);
+  }
+  .legal :global(h3) {
+    margin-top: 1.5rem;
+    font-weight: 700;
+    color: var(--color-brand-900);
+  }
+  .legal :global(p),
+  .legal :global(address) {
+    margin-top: 0.75rem;
+    color: var(--color-neutral-700, #404040);
+    line-height: 1.7;
+  }
+  .legal :global(ul) {
+    margin-top: 0.75rem;
+    list-style: disc;
+    padding-left: 1.25rem;
+    color: var(--color-neutral-700, #404040);
+    line-height: 1.7;
+  }
+  .legal :global(li + li) {
+    margin-top: 0.35rem;
+  }
+  .legal :global(a) {
+    color: var(--color-brand-700);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+</style>

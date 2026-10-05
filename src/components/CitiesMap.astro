@@ -1,6 +1,6 @@
 ---
 import Icon from "./Icon.astro";
-import { nearbyCities, site, withBase } from "../data/site";
+import { nearbyTowns, site, withBase } from "../data/site";
 ---
 
 <section id="cities" aria-labelledby="cities-heading" class="bg-sage-200 py-16 sm:py-24">
@@ -9,7 +9,7 @@ import { nearbyCities, site, withBase } from "../data/site";
       <div class="mx-auto w-full max-w-lg">
         <img
           src={withBase("/images/mp-map.webp")}
-          alt="Map of Madhya Pradesh with LAO's launch city Mandideep pinned, alongside nearby cities Bhopal, Indore, Gwalior, Jabalpur, Ujjain and Dewas"
+          alt="Map of Madhya Pradesh with LAO's launch town, Mandideep, pinned"
           width="1100"
           height="721"
           loading="lazy"
@@ -26,12 +26,13 @@ import { nearbyCities, site, withBase } from "../data/site";
           {site.foundingCity}
         </p>
         <p class="mt-4 max-w-md text-neutral-600">
-          Our first city. Our first community. The starting point for a faster India.
+          Our first town. Our first community. The starting point for a faster India.
         </p>
-        <ul class="mt-6 flex flex-wrap gap-2">
-          {nearbyCities.map((city) => (
+        <p class="mt-6 text-sm font-semibold text-brand-800">Coming next to nearby towns:</p>
+        <ul class="mt-2 flex flex-wrap gap-2">
+          {nearbyTowns.map((town) => (
             <li class="rounded-full border border-brand-200 bg-white px-3 py-1 text-xs font-semibold text-brand-800">
-              {city}
+              {town}
             </li>
           ))}
         </ul>

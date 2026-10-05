@@ -1,0 +1,126 @@
+---
+import LegalPage from "../layouts/LegalPage.astro";
+import { site, withBase } from "../data/site";
+---
+
+<LegalPage
+  title="Terms of Service"
+  description="The terms that apply when you use the LAO Groceries website and app to buy groceries and essentials."
+  updated="6 October 2026"
+  contactNumber={14}
+>
+  <p>
+    These terms are an agreement between you and {site.legal.name}. By creating an account, browsing or
+    placing an order on {site.name}, you accept these terms, our{" "}
+    <a href={withBase("/privacy/")}>Privacy Policy</a> and our{" "}
+    <a href={withBase("/refunds/")}>Refund &amp; Cancellation Policy</a>. If you do not agree, please do not
+    use {site.name}.
+  </p>
+
+  <h2>1. Who can use {site.name}</h2>
+  <p>
+    You must be at least 18 years old and able to enter a binding contract under Indian law. {site.name} is for
+    personal and household use; you may not buy products for resale.
+  </p>
+
+  <h2>2. Your account</h2>
+  <ul>
+    <li>You sign in with your mobile number and a one-time code sent by SMS. Keep your phone and codes private — anyone who can read your codes can use your account.</li>
+    <li>Give us accurate details, including a correct delivery address and a phone number where you can be reached.</li>
+    <li>You are responsible for orders placed from your account. Tell us straight away if you think someone else has used it.</li>
+    <li>We may suspend or close an account that breaks these terms, is used for fraud, or harms other customers, our staff or partners.</li>
+  </ul>
+
+  <h2>3. Where we deliver</h2>
+  <p>
+    We currently deliver in {site.foundingCity}. The app tells you whether we deliver to your address before
+    you order. Delivery areas, hours and slots may change.
+  </p>
+
+  <h2>4. Products, prices and availability</h2>
+  <ul>
+    <li>Product images are for illustration; packaging and brand artwork may differ. Always read the label on the product you receive.</li>
+    <li>Prices are in Indian rupees and include applicable taxes. No item is sold above its MRP.</li>
+    <li>Prices, offers and availability can change at any time. The price that applies is the one shown when you place your order.</li>
+    <li>Loose items sold by weight (such as fruits and vegetables) may vary slightly from the stated weight; see our <a href={withBase("/refunds/")}>Refund &amp; Cancellation Policy</a>.</li>
+    <li>If an item is shown at an obviously wrong price or with wrong details because of an error, we may cancel that item and refund you, even after you have ordered.</li>
+    <li>We may limit the quantity of an item per order or per customer.</li>
+  </ul>
+
+  <h2>5. Orders</h2>
+  <p>
+    An order is your offer to buy the items in it. It is accepted when we confirm it in the app. We may decline
+    or cancel an order, or part of it, for the reasons listed in our{" "}
+    <a href={withBase("/refunds/")}>Refund &amp; Cancellation Policy</a>, and will refund anything you paid
+    for what we cannot supply.
+  </p>
+
+  <h2>6. Fees</h2>
+  <p>
+    Your order may include a delivery fee, a handling fee and a small-order fee, depending on the order and our
+    current offers. Every fee is shown in the app before you pay. We may change fees from time to time; the fees
+    shown at checkout are the ones that apply to that order.
+  </p>
+
+  <h2>7. Payment</h2>
+  <ul>
+    <li>You can pay online by UPI, debit or credit card or net banking through our payment partner, or by cash on delivery where it is offered.</li>
+    <li>Online payments are subject to the payment partner’s and your bank’s terms. We do not store your card number, CVV or UPI PIN.</li>
+    <li>For cash on delivery, please pay the exact amount shown in the app when the order is handed over.</li>
+    <li>If a payment fails but money is debited, it is normally reversed automatically by your bank; contact us if it is not.</li>
+  </ul>
+
+  <h2>8. Delivery</h2>
+  <ul>
+    <li>Delivery times shown in the app are estimates. Weather, traffic and demand can cause delays; we will keep you updated.</li>
+    <li>Someone must be available at the address to receive the order. Our delivery partner asks for a one-time code at the door to confirm delivery.</li>
+    <li>If we cannot reach you or deliver after reasonable attempts, we may cancel the order. Perishable items may not be refunded in that case if the delay was caused by wrong details or no one being available.</li>
+    <li>Risk in the products passes to you when the order is handed over.</li>
+  </ul>
+
+  <h2>9. Cancellations, returns and refunds</h2>
+  <p>
+    These are covered by our <a href={withBase("/refunds/")}>Refund &amp; Cancellation Policy</a>, which forms
+    part of these terms.
+  </p>
+
+  <h2>10. Offers and coupons</h2>
+  <p>
+    Offers and coupons have their own conditions, shown with the offer. They cannot be exchanged for cash, are
+    limited to one use per customer unless stated otherwise, and may be withdrawn or changed. We may cancel the
+    benefit of an offer obtained through misuse, such as multiple accounts.
+  </p>
+
+  <h2>11. Acceptable use</h2>
+  <p>You agree not to:</p>
+  <ul>
+    <li>use {site.name} for any unlawful purpose, or to place fake or fraudulent orders;</li>
+    <li>misuse offers, refunds or cash on delivery, or create multiple accounts to do so;</li>
+    <li>abuse, threaten or harass our staff or delivery partners;</li>
+    <li>copy, scrape, reverse-engineer or interfere with the website, app or their security; or</li>
+    <li>upload anything harmful, offensive or that infringes someone else’s rights.</li>
+  </ul>
+
+  <h2>12. Intellectual property and liability</h2>
+  <p>
+    The {site.name} name, logo, website, app and their content belong to {site.legal.name} or its licensors and
+    may not be used without our written permission. Product names and brands belong to their owners.
+  </p>
+  <p>
+    We take care to run {site.name} well, but the service is provided “as is” and may sometimes be unavailable or
+    contain errors. To the extent the law allows, we are not liable for indirect or consequential loss, and our
+    total liability for any order is limited to the amount you paid for that order. Nothing in these terms limits
+    your rights under the Consumer Protection Act, 2019 or any liability that cannot be limited by law.
+  </p>
+
+  <h2>13. Governing law, disputes and changes</h2>
+  <p>
+    These terms are governed by the laws of India. We will first try to resolve any complaint through customer
+    support and our Grievance Officer. Subject to your rights to approach a consumer commission, the courts at
+    Bhopal, Madhya Pradesh have jurisdiction.
+  </p>
+  <p>
+    We may update these terms; the version on this page, with its “Last updated” date, applies from that date.
+    If you keep using {site.name} after a change, you accept the updated terms.
+  </p>
+</LegalPage>

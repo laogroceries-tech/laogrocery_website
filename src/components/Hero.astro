@@ -1,5 +1,5 @@
 ---
-import { site, withBase } from "../data/site";
+import { site, primaryCta, withBase } from "../data/site";
 ---
 
 <section class="relative overflow-hidden bg-sage-300">
@@ -11,20 +11,20 @@ import { site, withBase } from "../data/site";
       <h1 class="text-4xl font-extrabold leading-tight text-brand-900 sm:text-5xl lg:text-[3.25rem]">
         <span class="text-brand-900">Get Groceries Delivered</span>
         <br />
-        <span class="text-brand-600">or Pick Up In-Store.</span>
+        <span class="text-brand-600">at Discounted Prices.</span>
       </h1>
 
       <a
-        href={site.playStoreUrl}
+        href={primaryCta.href}
         class="mt-8 inline-flex items-center gap-2 rounded-full bg-brand-700 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-brand-900/20 transition-transform hover:-translate-y-0.5 hover:bg-brand-800"
       >
-        Download App
+        {primaryCta.label}
       </a>
 
       <div class="mt-10">
-        <h2 class="text-xl font-bold text-brand-900">First Order, Free Delivery</h2>
+        <h2 class="text-xl font-bold text-brand-900">Free Delivery Above ₹{site.freeDeliveryAbove}</h2>
         <p class="mt-1 max-w-md text-brand-800">
-          Enjoy free delivery on your first order with {site.name} — and every home delivery after that is priced lower than your local store. Prefer to shop in person? Pick up the same discounted groceries at your nearest LAO store.
+          Order from {site.name} and get free delivery on orders above ₹{site.freeDeliveryAbove}, with groceries priced lower than your local store. Store pickup in Mandideep is coming soon.
         </p>
       </div>
     </div>

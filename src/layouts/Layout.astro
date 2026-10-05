@@ -10,15 +10,17 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
+  faq?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, noindex, faq } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en-IN">
   <head>
-    <Seo title={title} description={description} />
+    <Seo title={title} description={description} noindex={noindex} faq={faq} />
   </head>
   <body class="bg-white text-neutral-900 antialiased">
     <a

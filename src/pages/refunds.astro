@@ -1,0 +1,135 @@
+---
+import LegalPage from "../layouts/LegalPage.astro";
+import { site, withBase } from "../data/site";
+---
+
+<LegalPage
+  title="Refund & Cancellation Policy"
+  description="How to cancel a LAO Groceries order, what to do if an item is damaged, missing or wrong, and how and when refunds are paid."
+  updated="6 October 2026"
+  contactNumber={10}
+>
+  <p>
+    We want every order to arrive complete, fresh and correct. If something goes wrong, this policy
+    explains what you can do and what we will do about it. It forms part of our{" "}
+    <a href={withBase("/terms/")}>Terms of Service</a>.
+  </p>
+
+  <h2>1. Cancelling an order</h2>
+  <p>
+    You can cancel an order yourself in the app, from the order’s details screen, for as long as the
+    app shows the <strong>Cancel</strong> option. This is available for a short time after you place
+    the order and only until we start packing it. Once an order is being packed or is out for
+    delivery, it can no longer be cancelled; you can instead refuse it at your door (see section 3).
+  </p>
+  <p>
+    If you cancel within that time, you are not charged a cancellation fee, and any amount you have
+    already paid is refunded in full (see section 6).
+  </p>
+
+  <h2>2. When we cancel an order or an item</h2>
+  <p>We may cancel an order, or individual items in it, if:</p>
+  <ul>
+    <li>an item is out of stock or does not meet our quality check when we pack it;</li>
+    <li>your address is outside our delivery area, or we cannot reach you to deliver;</li>
+    <li>an item was shown at a clearly wrong price or with wrong details because of an error;</li>
+    <li>the order appears fraudulent, abusive or bought for resale; or</li>
+    <li>events outside our control (such as severe weather or a local restriction) prevent delivery.</li>
+  </ul>
+  <p>
+    We will tell you in the app, by SMS or by phone. You will receive a full refund for anything you
+    paid for the cancelled items, and for the delivery and other fees if the whole order is cancelled.
+  </p>
+
+  <h2>3. Checking your order at the door</h2>
+  <p>
+    Please check your order when it is handed over. You may refuse any item that is damaged, leaking,
+    spoiled, past its expiry date or not what you ordered; we will not charge you for it, or will
+    refund it if you have prepaid. Our delivery partner asks for a one-time code at the door to confirm
+    that the order reached you — please share it only once you have received the order.
+  </p>
+
+  <h2>4. Damaged, spoiled, expired, missing or wrong items</h2>
+  <p>If you find a problem after delivery, tell us within these time limits:</p>
+  <ul>
+    <li>
+      <strong>Fresh and perishable items</strong> — fruits, vegetables, dairy, eggs, bread and bakery,
+      and other chilled or short-life items: within <strong>24 hours</strong> of delivery.
+    </li>
+    <li><strong>All other items</strong>: within <strong>48 hours</strong> of delivery.</li>
+    <li><strong>Missing items</strong> (charged but not delivered): within <strong>48 hours</strong> of delivery.</li>
+  </ul>
+  <p>
+    Contact customer support with your order number and, where it applies, a clear photo of the item,
+    its packaging and its label or expiry date. Please keep the item until the issue is resolved; we may
+    ask to collect it. Once we confirm the problem, we will — at your choice where possible — send a
+    replacement or refund the item’s price.
+  </p>
+  <p>
+    <strong>Loose items sold by weight</strong> (such as fruits and vegetables) can vary slightly from
+    the ordered weight. If the weight delivered is noticeably less than what you paid for, tell us and we
+    will refund the difference.
+  </p>
+
+  <h2>5. Returns</h2>
+  <p>
+    Because we deliver groceries and everyday essentials, we do not accept returns for a change of mind
+    once an order has been accepted at the door. Returns are accepted only for the reasons in sections 3
+    and 4. In particular, the following cannot be returned unless they arrive damaged, spoiled, expired or
+    wrong:
+  </p>
+  <ul>
+    <li>fresh and perishable items once accepted in good condition;</li>
+    <li>personal care, beauty and hygiene products, and baby care items such as diapers and wipes, once opened or with the seal broken;</li>
+    <li>any item that has been used, opened (other than to find a defect) or not kept as instructed on its label.</li>
+  </ul>
+
+  <h2>6. How and when refunds are paid</h2>
+  <ul>
+    <li>
+      <strong>Prepaid orders</strong> (UPI, card or net banking): refunds go back to the same payment
+      method. We start the refund within 2 business days of approving it; your bank or card issuer
+      usually credits it within <strong>5–7 business days</strong> after that.
+    </li>
+    <li>
+      <strong>Cash on delivery orders</strong>: if you have paid in cash and a refund is due, we refund it
+      by UPI or bank transfer to an account you give us, within 7 business days of approving it.
+    </li>
+    <li>You can follow the status of a refund on the order’s details screen in the app.</li>
+  </ul>
+  <p>
+    If a refund has not reached you within these times, contact customer support with your order number
+    and we will share the transaction reference so you can check with your bank.
+  </p>
+
+  <h2>7. Fees, offers and coupons</h2>
+  <ul>
+    <li>
+      If the <strong>whole order</strong> is cancelled (by you within the cancellation time, or by us), any
+      delivery, handling or small-order fee you paid is refunded too. If only some items are refunded, the
+      fees stay as charged unless the refund was caused by our error.
+    </li>
+    <li>
+      If an order used a <strong>discount or coupon</strong>, the refund is the amount you actually paid for
+      the item after the discount. A coupon used on a cancelled order may not be reusable.
+    </li>
+    <li>
+      If an order no longer qualifies for an offer after an item is refunded, we will not take back the
+      benefit of that offer.
+    </li>
+  </ul>
+
+  <h2>8. Misuse</h2>
+  <p>
+    We review every request fairly, and almost all of them are approved. We may refuse a request, or limit
+    an account, where we see repeated or false claims, or claims without the information asked for in
+    section 4.
+  </p>
+
+  <h2>9. Changes to this policy</h2>
+  <p>
+    We may update this policy as our service changes. The version on this page, with its “Last updated”
+    date, applies to orders placed from that date. Your statutory rights as a consumer are not affected by
+    this policy.
+  </p>
+</LegalPage>
