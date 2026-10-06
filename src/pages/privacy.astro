@@ -66,6 +66,7 @@ import { site } from "../data/site";
     <li>Account and address details: while your account is active, and deleted or anonymised after you ask us to delete your account.</li>
     <li>Order and payment history: 2 years from the date of the order, then deleted or anonymised.</li>
     <li>Tax invoices and accounting records: only for the period Indian tax law requires, even after account deletion.</li>
+    <li>A deleted account's phone number, as a keyed hash only: for as long as its order records are kept, to answer lawful requests.</li>
     <li>Sign-in codes: they expire within minutes and are not kept beyond what is needed to prevent misuse.</li>
     <li>Support messages: up to 2 years after the issue is closed, unless needed longer for a dispute.</li>
   </ul>
@@ -84,12 +85,21 @@ import { site } from "../data/site";
 
   <h2 id="delete-account">6. Deleting your account</h2>
   <p>
-    To delete your {site.name} account and its personal data, email{" "}
+    <strong>In the app:</strong> go to Profile → Delete my account, tell us why you are leaving, and confirm
+    with the one-time code we send to your registered mobile number. You are signed out on every device
+    straight away, and we delete your account within 30 days. Any open order or refund is completed first.
+  </p>
+  <p>
+    <strong>Without the app:</strong> email{" "}
     <a href={`mailto:${site.supportEmail}?subject=${encodeURIComponent("Delete my LAO account")}`}>{site.supportEmail}</a>{" "}
-    with the subject “Delete my LAO account” and your registered mobile number. Our support team will confirm the request
-    with a one-time code sent to that number and complete the deletion within 30 days. Your name, addresses
-    and saved preferences are deleted; order and payment records are kept only as long as the law requires
-    (see section 4). Any open order or refund is completed first.
+    with the subject “Delete my LAO account” and your registered mobile number. We confirm the request with
+    a one-time code sent to that number, then delete the account within 30 days.
+  </p>
+  <p>
+    Deleting your account removes your name, email, phone number, saved addresses, devices, cart and
+    wishlist. Order and payment records are kept only as long as the law requires (see section 4). So that
+    we can answer a lawful request about past orders, we keep a scrambled (keyed-hash) form of the phone
+    number, which cannot be turned back into the number.
   </p>
 
   <h2>7. Security</h2>
