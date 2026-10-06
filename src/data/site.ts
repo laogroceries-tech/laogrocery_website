@@ -3,7 +3,7 @@ export const site = {
   fullName: "LAO Groceries",
   tagline: "Discounted Groceries Delivered to Your Doorstep.",
   description:
-    "Discounted groceries, dairy, snacks, household and baby care delivered to your doorstep in Mandideep, MP. Free delivery on orders above ₹149.",
+    "Discounted groceries, dairy, snacks, household and baby care delivered to your doorstep in Mandideep, MP. Free delivery on your first order and above ₹149.",
   // The brand's home, where the customer web app lives. This site is served
   // under `${url}/about/`; see astro.config.mjs.
   url: "https://www.laogroceries.in",
@@ -11,10 +11,11 @@ export const site = {
   // then sends people to the web app at `url` and the Play badge reads
   // "Coming soon". Set it to the listing (…/store/apps/details?id=…) to switch.
   playStoreUrl: "",
-  // Delivery is free above this order value. It must match what checkout
-  // charges (app_admin's customer-orders function), or the site promises
-  // something the app does not do.
+  // The delivery rule, which must match what checkout charges (priceBasket
+  // in app_admin's customer-orders): free on a customer's first order and at
+  // or above `freeDeliveryAbove` of items; `deliveryFee` below that.
   freeDeliveryAbove: 149,
+  deliveryFee: 10,
   // Customers write to support@; partners, suppliers and press to contact@.
   supportEmail: "support@laogroceries.in",
   businessEmail: "contact@laogroceries.in",
@@ -192,7 +193,7 @@ export const faqs = [
   {
     question: "Is there a delivery fee?",
     answer:
-      `Delivery is free on orders above ₹${site.freeDeliveryAbove}. Every fee on your order is shown in the app before you pay — there are no hidden charges.`,
+      `Your first order is delivered free. After that, delivery is free on orders of ₹${site.freeDeliveryAbove} or more, and ₹${site.deliveryFee} below that. A small handling fee applies to every order. Every fee is shown in the app before you pay — there are no hidden charges.`,
   },
   {
     question: "Can I pick up my order instead of getting it delivered?",
