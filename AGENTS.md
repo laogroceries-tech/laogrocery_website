@@ -29,10 +29,12 @@ through (see the workspace `CLAUDE.md`). Each commit either fixes every
 sentence it makes untrue — in this repo and in the other MART repos' `*.md`
 files — or confirms there are none.
 
-1. **`npm run build` passes** and everything lands under `dist/about/`.
-2. **Every file from `public/` goes through `withBase()`** (`src/data/site.ts`).
-   A bare `"/logo.png"` resolves against the app at the domain root and breaks.
-3. **The `/about` path is a contract with `app_customer_fe/render.yaml`**,
-   which proxies `/about/*` here. Change `base`/`outDir` in both or neither.
+1. **`npm run build` passes** and `dist/` has the pages at its root.
+2. **Every file from `public/` goes through `withBase()`** (`src/data/site.ts`),
+   so a base path can be added back without hunting down bare `"/logo.png"`s.
+3. **The legal URLs are a contract with shipped apps.** `/privacy/`, `/terms/`
+   and `/refunds/` are linked from Android builds that cannot be updated and
+   from the Play listing, and the old `/about/...` forms are kept alive by
+   `redirects` in `astro.config.mjs`. Never rename or drop them.
 4. **Changed content, structure or deployment?** Update README.md in the same
    commit, and delete anything it now says that is untrue.

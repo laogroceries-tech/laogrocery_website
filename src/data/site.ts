@@ -4,11 +4,14 @@ export const site = {
   tagline: "Discounted Groceries Delivered to Your Doorstep.",
   description:
     "Discounted groceries, dairy, snacks, household and baby care delivered to your doorstep in Mandideep, MP. Free delivery on your first order and above ₹149.",
-  // The brand's home, where the customer web app lives. This site is served
-  // under `${url}/about/`; see astro.config.mjs.
+  // The brand's home. This site is served at the root of `${url}`; see
+  // astro.config.mjs.
   url: "https://www.laogroceries.in",
+  // The customer web app (app_customer_fe) lives on its own host, so every
+  // "Order" button goes here, not to `url`.
+  appUrl: "https://app.laogroceries.in",
   // Empty until the app is listed on Google Play: every "Download App" button
-  // then sends people to the web app at `url` and the Play badge reads
+  // then sends people to the web app at `appUrl` and the Play badge reads
   // "Coming soon". Set it to the listing (…/store/apps/details?id=…) to switch.
   playStoreUrl: "",
   // The delivery rule, which must match what checkout charges (priceBasket
@@ -50,7 +53,7 @@ export const site = {
 // until then.
 export const primaryCta = site.playStoreUrl
   ? { href: site.playStoreUrl, label: "Download App" }
-  : { href: site.url, label: "Order Online" };
+  : { href: site.appUrl, label: "Order Online" };
 
 // Every file under public/ must go through this: the site is served under a
 // base path, so a bare "/logo.png" would resolve against the app at the root.
@@ -177,7 +180,7 @@ export const footerLinks = {
   // Customer help. There is no "Track Your Order" link: the web app has no
   // orders URL to link to, so orders are tracked inside the app after sign-in.
   help: [
-    { label: "Order Online", href: site.url },
+    { label: "Order Online", href: site.appUrl },
     { label: "FAQs", href: withBase("/#faq") },
     { label: "Contact Us", href: withBase("/#contact") },
     { label: "Report an Issue", href: `mailto:${site.supportEmail}?subject=${encodeURIComponent("Issue with my LAO order")}` },

@@ -15,26 +15,26 @@ Everything renders to static HTML; the only client-side JavaScript is the ~30-li
 
 ```bash
 npm install
-npm run dev      # http://localhost:4321/about/
-npm run build    # outputs to dist/about/
+npm run dev      # http://localhost:4321/
+npm run build    # outputs to dist/
 npm run preview  # serve the production build locally
 ```
 
-## Where it lives: `www.laogroceries.in/about/`
+## Where it lives: `www.laogroceries.in`
 
-The root of `www.laogroceries.in` is the customer web app (`app_customer_fe`).
-That app's Render service proxies `/about/*` to this site's Render service
-(`laogrocery-website.onrender.com`), so this site is built for the `/about`
-base path:
+This site is the root of `www.laogroceries.in` (`laogroceries.in` redirects to
+it). The shop, `app_customer_fe`, is a separate Render service on
+`app.laogroceries.in`; the "Order" buttons here link to `site.appUrl`. The two
+repos share no code and no path.
 
-- `base: '/about'` and `outDir: './dist/about'` in `astro.config.mjs`. The
-  nested outDir makes this service serve `/about/...` itself, so the proxy
-  forwards paths unchanged.
-- **Every file from `public/` must be referenced through `withBase()`** from
-  `src/data/site.ts`. A bare `"/logo.png"` resolves against the app at the
-  root and breaks.
-- `robots.txt` and `llms.txt` live in `app_customer_fe/web/`, because crawlers
-  only read them at the domain root.
+- It was once served under `/about/`. The old URLs still work: `redirects` in
+  `astro.config.mjs` writes a small redirect page at `/about/`,
+  `/about/privacy/`, `/about/terms/` and `/about/refunds/`, because shipped
+  Android builds and the Play listing link to the policy pages by those paths.
+- `robots.txt` and `llms.txt` are in `public/`, so they are served at the
+  domain root where crawlers look for them.
+- Reference files from `public/` through `withBase()` from `src/data/site.ts`
+  (it is a no-op at the root, but keeps a base path a one-line change).
 
 Requires Node 22+.
 
@@ -49,8 +49,8 @@ src/
                    not inside components
   layouts/Layout.astro
   layouts/LegalPage.astro   Shell for the policy pages (title, intro, contact/Grievance Officer section)
-  pages/index.astro   Assembles the sections in order (/about/)
-  pages/privacy.astro, terms.astro, refunds.astro   Policy pages (/about/privacy/ etc.).
+  pages/index.astro   Assembles the sections in order (/)
+  pages/privacy.astro, terms.astro, refunds.astro   Policy pages (/privacy/ etc.).
                    Privacy section 6 (#delete-account) is the account-deletion URL
                    Google Play asks for.
   styles/global.css   Tailwind import + brand color/font tokens (@theme block)
@@ -60,6 +60,7 @@ public/
   images/service-*.webp           Category photos for 5 of 6 service cards
   favicon.svg, favicon-32.png, favicon-64.png, apple-touch-icon.png
   og-image.png / og-image.svg   Social share preview image
+  robots.txt, llms.txt     Crawler files, served at the domain root
   sitemap-index.xml (generated on build)
 ```
 
@@ -85,9 +86,9 @@ All copy, nav links, service categories, FAQ, and the nearby-towns list (`nearby
 
 - Semantic HTML5 (`header`, `nav`, `main`, `section`, `footer`), a single `<h1>`, and a logical heading hierarchy throughout.
 - `Seo.astro` centralises `<title>`, meta description, canonical URL, Open Graph/Twitter tags, and JSON-LD (`GroceryStore` + `FAQPage` schema).
-- `robots.txt` (allowing GPTBot, ClaudeBot, Google-Extended) and `llms.txt` are served from the domain root by `app_customer_fe`; `robots.txt` lists this site's sitemap.
+- `public/robots.txt` (allowing GPTBot, ClaudeBot, Google-Extended) and `public/llms.txt` are served from the domain root; `robots.txt` lists the sitemap (`/sitemap-index.xml`, the one to submit in Search Console).
 - FAQ content is real markup (`<details>/<summary>`, no JS) so it's crawlable and matches the FAQPage structured data.
-- The domain is hardcoded to `https://www.laogroceries.in` in `astro.config.mjs` and `src/data/site.ts`, so canonical URLs, the sitemap and OG tags always point at `https://www.laogroceries.in/about/` — never at the `onrender.com` address, which would otherwise be indexed as a duplicate.
+- The domain is hardcoded to `https://www.laogroceries.in` in `astro.config.mjs` and `src/data/site.ts`, so canonical URLs, the sitemap and OG tags always point at `https://www.laogroceries.in/` — never at the `onrender.com` address, which would otherwise be indexed as a duplicate.
 
 ## Deploying to Render
 
@@ -100,11 +101,11 @@ This repo is set up as a Render **Static Site**:
 | Publish Directory | `dist` |
 | Environment variable | `NODE_VERSION=22` (the app requires Node 22+) |
 
-This service has **no custom domain** of its own: `www.laogroceries.in` belongs to the customer web app's service, which proxies `/about/*` here. Its own root (`laogrocery-website.onrender.com/`) is a redirect to `/about/`, written by `scripts/root-redirect.mjs` after the Astro build.
+Custom domains on this service: `www.laogroceries.in` and `laogroceries.in` (Render redirects the apex to `www`). DNS: `CNAME www` to `laogrocery-website.onrender.com`; the apex uses the record Render shows when you add it. Move the domains in Render *before* changing the DNS record, otherwise `www` has no certificate and the site is down until Render issues one.
 
 ## Before going live
 
 - [ ] Add a real Snacks category photo (see Design notes above) and drop in a phone-login screenshot / footer aisle photo / accurate MP map if those become available. The current `mp-map.webp` still pins Bhopal, Indore, Gwalior, Jabalpur, Ujjain and Dewas; replace it with one pinning Mandideep, Sehore and Vidisha.
 - [ ] Set `playStoreUrl` in `src/data/site.ts` once the app is listed on Google Play, and update `site.social` once the Instagram/Facebook/LinkedIn accounts exist (the handles there are placeholders).
 - [ ] Replace the "coming soon" `storeLocations` entry in `src/data/site.ts` with real pickup-store addresses once they open.
-- [ ] Re-run `npm run build` and spot check `dist/about/` before deploying.
+- [ ] Re-run `npm run build` and spot check `dist/` before deploying.

@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# LLM / AI crawlers are welcome. This site is the page written for them; the
+# shop at app.laogroceries.in renders client-side.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://www.laogroceries.in/sitemap-index.xml

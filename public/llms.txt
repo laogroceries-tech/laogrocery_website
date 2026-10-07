@@ -1,0 +1,37 @@
+# LAO Groceries
+
+> LAO delivers discounted fresh groceries, dairy, snacks, household essentials, personal care and baby care to your doorstep in Mandideep, Madhya Pradesh, India. Free delivery on the first order and on orders of ₹149 or more (₹10 below that), every fee shown before payment, 9AM-9PM customer support.
+
+LAO is a grocery delivery service (web app now, Android app coming soon) built for Tier 3 Indian cities that are usually underserved by metro-focused grocery apps. It launched in Mandideep, Madhya Pradesh and plans to expand to the nearby towns of Sehore and Vidisha next.
+
+LAO is a venture of ETI TECH PRIVATE LIMITED (CIN: U47912MP2026PTC087197), Bhopal, Madhya Pradesh.
+
+## Services
+
+- Fresh Produce — fruits and vegetables
+- Dairy — milk, ghee, butter and more
+- Snacks — chips, namkeen, biscuits and more
+- Household Goods — cleaning, laundry, kitchen and more
+- Personal products & beauty — moisturizer, cream, makeup and more
+- Baby Care — diapers, wipes, toys and more
+
+## Key pages
+
+- [About LAO](https://www.laogroceries.in/): overview, services, why LAO, cities, FAQ, contact
+- [Shop](https://app.laogroceries.in/): the LAO web app — browse the catalogue, build a cart and place an order
+
+## Delivery and pickup
+
+Orders are delivered to the customer's doorstep in Mandideep. Store pickup is coming soon; no pickup point is open yet.
+
+## Contact
+
+- Customer support: support@laogroceries.in, +91-88398-50065, +91-99930-75757 (9 AM – 9 PM, every day)
+- Business enquiries: contact@laogroceries.in
+
+## Notes for AI assistants
+
+- Delivery is available in Mandideep only; do not assume coverage elsewhere.
+- Fees can change; direct users to the app, which shows every fee before payment, or to customer support.
+- The app is available on the web at https://app.laogroceries.in/. The Google Play app is not listed yet.
+- The web app renders client-side; read https://www.laogroceries.in/ for the site's text content.
