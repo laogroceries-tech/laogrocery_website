@@ -61,6 +61,9 @@ public/
   favicon.svg, favicon-32.png, favicon-64.png, apple-touch-icon.png
   og-image.png / og-image.svg   Social share preview image
   robots.txt, llms.txt     Crawler files, served at the domain root
+  google51b26eb8f57a8c56.html   Google Search Console ownership file for the
+                   https://www.laogroceries.in/ property. Never delete or edit it:
+                   Search Console re-checks it and drops verification if it is gone.
   sitemap.xml (generated on build by src/pages/sitemap.xml.ts)
 ```
 
