@@ -6,7 +6,7 @@ A static, SEO/LLM-friendly marketing site for **LAO**, a discounted grocery deli
 
 - **[Astro](https://astro.build)** — ships zero JS by default, outputs plain static HTML/CSS. Ideal for a marketing site that needs to be fast and easy for search engines and LLM crawlers to parse.
 - **[Tailwind CSS v4](https://tailwindcss.com)** — utility-first styling via `@tailwindcss/vite`, no separate config file needed (theme tokens live in `src/styles/global.css`).
-- **[@astrojs/sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/)** — auto-generates `sitemap-index.xml` on build.
+- **`src/pages/sitemap.xml.ts`** — writes `/sitemap.xml` on build, listing every page in `src/pages/`. It replaced `@astrojs/sitemap`, which can only name its file `sitemap-index.xml`, so `/sitemap.xml` (the URL people and SEO tools try first) was a 404.
 - No component/UI kit dependency — a small hand-rolled `Icon.astro` (inline SVGs) keeps the bundle dependency-free.
 
 Everything renders to static HTML; the only client-side JavaScript is the ~30-line mobile menu toggle in `Header.astro`. There's no build-time data fetching, database, or backend.
@@ -61,7 +61,7 @@ public/
   favicon.svg, favicon-32.png, favicon-64.png, apple-touch-icon.png
   og-image.png / og-image.svg   Social share preview image
   robots.txt, llms.txt     Crawler files, served at the domain root
-  sitemap-index.xml (generated on build)
+  sitemap.xml (generated on build by src/pages/sitemap.xml.ts)
 ```
 
 ## Content
@@ -86,7 +86,7 @@ All copy, nav links, service categories, FAQ, and the nearby-towns list (`nearby
 
 - Semantic HTML5 (`header`, `nav`, `main`, `section`, `footer`), a single `<h1>`, and a logical heading hierarchy throughout.
 - `Seo.astro` centralises `<title>`, meta description, canonical URL, Open Graph/Twitter tags, and JSON-LD (`GroceryStore` + `FAQPage` schema).
-- `public/robots.txt` (allowing GPTBot, ClaudeBot, Google-Extended) and `public/llms.txt` are served from the domain root; `robots.txt` lists the sitemap (`/sitemap-index.xml`, the one to submit in Search Console).
+- `public/robots.txt` (allowing GPTBot, ClaudeBot, Google-Extended) and `public/llms.txt` are served from the domain root; `robots.txt` lists the sitemap (`/sitemap.xml`, the one to submit in Search Console).
 - FAQ content is real markup (`<details>/<summary>`, no JS) so it's crawlable and matches the FAQPage structured data.
 - The domain is hardcoded to `https://www.laogroceries.in` in `astro.config.mjs` and `src/data/site.ts`, so canonical URLs, the sitemap and OG tags always point at `https://www.laogroceries.in/` — never at the `onrender.com` address, which would otherwise be indexed as a duplicate.
 
