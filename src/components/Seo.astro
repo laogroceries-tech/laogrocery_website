@@ -11,7 +11,9 @@ interface Props {
 }
 
 const {
-  title = `${site.fullName} — Grocery Delivery in Mandideep, MP`,
+  // "About": the shop's home is the page for "grocery delivery in
+  // Mandideep"; this one answers searches for the company itself.
+  title = `About ${site.fullName} — Discounted Grocery Delivery in Mandideep, MP`,
   description = site.description,
   noindex = false,
   faq = true,
@@ -63,21 +65,12 @@ const organizationSchema = {
   ],
 };
 
-// The site itself, published by the store above (linked by @id): this is
-// what Google reads for the site name shown above a search result.
-const websiteSchema = {
-  "@type": "WebSite",
-  "@id": `${site.url}/#website`,
-  url: site.url,
-  name: site.fullName,
-  alternateName: site.name,
-  inLanguage: "en-IN",
-  publisher: { "@id": organizationId },
-};
-
+// The company, described once, here. The shop's pages (app_customer_fe's
+// tool/site_pages.dart) point to it by this @id: its home publishes the
+// WebSite, and every product is sold by this store.
 const siteGraph = {
   "@context": "https://schema.org",
-  "@graph": [organizationSchema, websiteSchema],
+  "@graph": [organizationSchema],
 };
 
 const faqSchema = {

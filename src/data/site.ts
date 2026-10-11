@@ -4,12 +4,12 @@ export const site = {
   tagline: "Discounted Groceries Delivered to Your Doorstep.",
   description:
     "Discounted groceries, dairy, snacks, household and baby care delivered to your doorstep in Mandideep, MP. Free delivery on your first order and above ₹149.",
-  // The brand's home. This site is served at the root of `${url}`; see
-  // astro.config.mjs.
+  // The brand's domain. The shop is its root; this site is its /about/
+  // section (astro.config.mjs).
   url: "https://www.laogroceries.in",
-  // The customer web app (app_customer_fe) lives on its own host, so every
-  // "Order" button goes here, not to `url`.
-  appUrl: "https://app.laogroceries.in",
+  // The shop (app_customer_fe), at the root of the domain: every "Order"
+  // button and the logo go here.
+  appUrl: "https://www.laogroceries.in/",
   // Empty until the app is listed on Google Play: every "Download App" button
   // then sends people to the web app at `appUrl` and the Play badge reads
   // "Coming soon". Set it to the listing (…/store/apps/details?id=…) to switch.
@@ -55,8 +55,9 @@ export const primaryCta = site.playStoreUrl
   ? { href: site.playStoreUrl, label: "Download App" }
   : { href: site.appUrl, label: "Order Online" };
 
-// Every file under public/ must go through this: the site is served under a
-// base path, so a bare "/logo.png" would resolve against the app at the root.
+// Every file under public/ and every link within this site must go through
+// this: the site is served under /about/, so a bare "/logo.png" would resolve
+// against the shop at the root.
 export const withBase = (path: string) =>
   `${import.meta.env.BASE_URL.replace(/\/$/, "")}${path}`;
 

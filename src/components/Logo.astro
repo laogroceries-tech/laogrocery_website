@@ -1,5 +1,5 @@
 ---
-import { withBase } from "../data/site";
+import { site, withBase } from "../data/site";
 
 interface Props {
   class?: string;
@@ -8,20 +8,21 @@ interface Props {
   // the green artwork has too little contrast against the dark footer.
   variant?: "dark" | "light";
 }
+// The logo leads to the shop, the home of the domain.
 const { class: className = "", imgClass, variant = "dark" } = Astro.props;
 ---
 
 {
   variant === "light" ? (
     <a
-      href={withBase("/")}
+      href={site.appUrl}
       class:list={["inline-flex items-center rounded-xl bg-white px-3 py-2", className]}
-      aria-label="LAO — home"
+      aria-label="LAO — shop"
     >
       <img src={withBase("/logo.png")} alt="LAO" class={imgClass ?? "h-8 w-auto"} width="273" height="102" />
     </a>
   ) : (
-    <a href={withBase("/")} class:list={["inline-flex items-center", className]} aria-label="LAO — home">
+    <a href={site.appUrl} class:list={["inline-flex items-center", className]} aria-label="LAO — shop">
       <img src={withBase("/logo.png")} alt="LAO" class={imgClass ?? "h-8 w-auto sm:h-9"} width="273" height="102" />
     </a>
   )

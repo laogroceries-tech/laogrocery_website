@@ -1,12 +1,12 @@
-# LAO Groceries — Marketing Website
+# LAO Groceries — Company Website (`/about/`)
 
-A static, SEO/LLM-friendly marketing site for **LAO**, a discounted grocery delivery app (store pickup coming soon) for Tier 3 Indian cities (launching in Mandideep, Madhya Pradesh). Built from the Figma prototypes for the mobile and web experiences, with the web nav/layout patterns back-ported into the mobile view so small screens aren't missing navigation or the cities/map content.
+A static, SEO/LLM-friendly company site for **LAO**, a discounted grocery delivery app (store pickup coming soon) for Tier 3 Indian cities (launching in Mandideep, Madhya Pradesh). Built from the Figma prototypes for the mobile and web experiences, with the web nav/layout patterns back-ported into the mobile view so small screens aren't missing navigation or the cities/map content.
 
 ## Stack
 
 - **[Astro](https://astro.build)** — ships zero JS by default, outputs plain static HTML/CSS. Ideal for a marketing site that needs to be fast and easy for search engines and LLM crawlers to parse.
 - **[Tailwind CSS v4](https://tailwindcss.com)** — utility-first styling via `@tailwindcss/vite`, no separate config file needed (theme tokens live in `src/styles/global.css`).
-- **`src/pages/sitemap.xml.ts`** — writes `/sitemap.xml` on build, listing every page in `src/pages/`. It replaced `@astrojs/sitemap`, which can only name its file `sitemap-index.xml`, so `/sitemap.xml` (the URL people and SEO tools try first) was a 404.
+- **`src/pages/sitemap.xml.ts`** — writes `/about/sitemap.xml` on build, listing every page in `src/pages/`. The domain's `/sitemap.xml` is an index written by the shop's build, which lists this file.
 - No component/UI kit dependency — a small hand-rolled `Icon.astro` (inline SVGs) keeps the bundle dependency-free.
 
 Everything renders to static HTML; the only client-side JavaScript is the ~30-line mobile menu toggle in `Header.astro`. There's no build-time data fetching, database, or backend.
@@ -16,25 +16,31 @@ Everything renders to static HTML; the only client-side JavaScript is the ~30-li
 ```bash
 npm install
 npm run dev      # http://localhost:4321/
-npm run build    # outputs to dist/
+npm run build    # outputs to dist/about/
 npm run preview  # serve the production build locally
 ```
 
-## Where it lives: `www.laogroceries.in`
+## Where it lives: `www.laogroceries.in/about/`
 
-This site is the root of `www.laogroceries.in` (`laogroceries.in` redirects to
-it). The shop, `app_customer_fe`, is a separate Render service on
-`app.laogroceries.in`; the "Order" buttons here link to `site.appUrl`. The two
-repos share no code and no path.
+The shop, `app_customer_fe`, is the root of `www.laogroceries.in` and owns the
+domain on Render. This site is the company section under `/about/`: the
+shop's Render service passes every `/about/...` request through to this
+service (`laogrocery-website.onrender.com`), so the two repos still share no
+code and deploy separately. The logo and the "Order" buttons lead to the shop
+(`site.appUrl`).
 
-- It was once served under `/about/`. The old URLs still work: `redirects` in
-  `astro.config.mjs` writes a small redirect page at `/about/`,
-  `/about/privacy/`, `/about/terms/` and `/about/refunds/`, because shipped
-  Android builds and the Play listing link to the policy pages by those paths.
-- `robots.txt` and `llms.txt` are in `public/`, so they are served at the
-  domain root where crawlers look for them.
-- Reference files from `public/` through `withBase()` from `src/data/site.ts`
-  (it is a no-op at the root, but keeps a base path a one-line change).
+| Address on `www` | Served from |
+|---|---|
+| `/about/`, `/about/privacy/`, `/about/terms/`, `/about/refunds/`, `/about/sitemap.xml` | this site, through the shop's rewrite |
+| `/privacy/`, `/terms/`, `/refunds/` | the same pages, through the shop's rewrite: shipped Android builds and the Play listing link to these, so they answer 200, not a redirect; the page's canonical URL is the `/about/...` one |
+| `/llms.txt` | `/about/llms.txt`, through the shop's rewrite |
+| `/`, `/robots.txt`, `/sitemap.xml`, the Search Console file | the shop (`app_customer_fe/web/`) |
+
+- `astro.config.mjs` sets `base: '/about'` and `outDir: './dist/about'`, so
+  links and files agree: the service serves `/about/...` itself, and its own
+  root is empty on purpose.
+- Every link to a file in `public/` or a page here goes through `withBase()`
+  from `src/data/site.ts`; a bare `"/logo.png"` would point at the shop.
 
 Requires Node 22+.
 
@@ -49,8 +55,8 @@ src/
                    not inside components
   layouts/Layout.astro
   layouts/LegalPage.astro   Shell for the policy pages (title, intro, contact/Grievance Officer section)
-  pages/index.astro   Assembles the sections in order (/)
-  pages/privacy.astro, terms.astro, refunds.astro   Policy pages (/privacy/ etc.).
+  pages/index.astro   Assembles the sections in order (/about/)
+  pages/privacy.astro, terms.astro, refunds.astro   Policy pages (/about/privacy/ etc.).
                    Privacy section 6 (#delete-account) is the account-deletion URL
                    Google Play asks for.
   styles/global.css   Tailwind import + brand color/font tokens (@theme block)
@@ -60,11 +66,10 @@ public/
   images/service-*.webp           Category photos for 5 of 6 service cards
   favicon.svg, favicon-32.png, favicon-64.png, apple-touch-icon.png
   og-image.png / og-image.svg   Social share preview image
-  robots.txt, llms.txt     Crawler files, served at the domain root
-  google51b26eb8f57a8c56.html   Google Search Console ownership file for the
-                   https://www.laogroceries.in/ property. Never delete or edit it:
-                   Search Console re-checks it and drops verification if it is gone.
+  llms.txt                 For LLM crawlers; the domain's /llms.txt serves it
   sitemap.xml (generated on build by src/pages/sitemap.xml.ts)
+(robots.txt and the Search Console ownership file are the domain root's, so
+they live in app_customer_fe/web/.)
 ```
 
 ## Content
@@ -89,7 +94,8 @@ All copy, nav links, service categories, FAQ, and the nearby-towns list (`nearby
 
 - Semantic HTML5 (`header`, `nav`, `main`, `section`, `footer`), a single `<h1>`, and a logical heading hierarchy throughout.
 - `Seo.astro` centralises `<title>`, meta description, canonical URL, Open Graph/Twitter tags, and JSON-LD: one `@graph` with the `OnlineStore` (an online store, not a walk-in shop, so not `GroceryStore`) and the `WebSite` it publishes, linked by `@id` — the `WebSite` gives Google the site name shown in results — plus `FAQPage` on the home page.
-- `public/robots.txt` (allowing GPTBot, ClaudeBot, Google-Extended) and `public/llms.txt` are served from the domain root; `robots.txt` lists the sitemap (`/sitemap.xml`, the one to submit in Search Console).
+- `public/llms.txt` is served at `/llms.txt` through the shop. The domain's `robots.txt` (allowing GPTBot, ClaudeBot, Google-Extended) and its sitemap index `/sitemap.xml` (the one to submit in Search Console) belong to the shop, `app_customer_fe`; the index lists `/about/sitemap.xml`.
+- Page titles target the company ("About LAO Groceries — …"); "grocery delivery in Mandideep" belongs to the shop's home, so the two never compete for one search.
 - FAQ content is real markup (`<details>/<summary>`, no JS) so it's crawlable and matches the FAQPage structured data.
 - The domain is hardcoded to `https://www.laogroceries.in` in `astro.config.mjs` and `src/data/site.ts`, so canonical URLs, the sitemap and OG tags always point at `https://www.laogroceries.in/` — never at the `onrender.com` address, which would otherwise be indexed as a duplicate.
 
@@ -101,10 +107,10 @@ This repo is set up as a Render **Static Site**:
 |---|---|
 | Root Directory | _(leave blank — repo root)_ |
 | Build Command | `npm install && npm run build` |
-| Publish Directory | `dist` |
+| Publish Directory | `dist` (pages are in `dist/about/`) |
 | Environment variable | `NODE_VERSION=22` (the app requires Node 22+) |
 
-Custom domains on this service: `www.laogroceries.in` and `laogroceries.in` (Render redirects the apex to `www`). DNS: `CNAME www` to `laogrocery-website.onrender.com`; the apex uses the record Render shows when you add it. Move the domains in Render *before* changing the DNS record, otherwise `www` has no certificate and the site is down until Render issues one.
+No custom domain on this service: `www.laogroceries.in` and `laogroceries.in` belong to the shop's service (`app_customer_fe`, its README "Domains"), which forwards `/about/...` here. Keep the service name: the shop's rewrites name `laogrocery-website.onrender.com`.
 
 ## Before going live
 
