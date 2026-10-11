@@ -1,8 +1,8 @@
 User-agent: *
 Allow: /
 
-# LLM / AI crawlers are welcome. This site is the page written for them; the
-# shop at app.laogroceries.in renders client-side.
+# LLM / AI crawlers are welcome. This site describes the company; the shop's
+# category and product pages are on app.laogroceries.in (its own sitemap).
 User-agent: GPTBot
 Allow: /
 
