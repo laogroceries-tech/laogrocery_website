@@ -88,7 +88,7 @@ All copy, nav links, service categories, FAQ, and the nearby-towns list (`nearby
 ## SEO / LLM-friendliness
 
 - Semantic HTML5 (`header`, `nav`, `main`, `section`, `footer`), a single `<h1>`, and a logical heading hierarchy throughout.
-- `Seo.astro` centralises `<title>`, meta description, canonical URL, Open Graph/Twitter tags, and JSON-LD (`GroceryStore` + `FAQPage` schema).
+- `Seo.astro` centralises `<title>`, meta description, canonical URL, Open Graph/Twitter tags, and JSON-LD: one `@graph` with the `OnlineStore` (an online store, not a walk-in shop, so not `GroceryStore`) and the `WebSite` it publishes, linked by `@id` — the `WebSite` gives Google the site name shown in results — plus `FAQPage` on the home page.
 - `public/robots.txt` (allowing GPTBot, ClaudeBot, Google-Extended) and `public/llms.txt` are served from the domain root; `robots.txt` lists the sitemap (`/sitemap.xml`, the one to submit in Search Console).
 - FAQ content is real markup (`<details>/<summary>`, no JS) so it's crawlable and matches the FAQPage structured data.
 - The domain is hardcoded to `https://www.laogroceries.in` in `astro.config.mjs` and `src/data/site.ts`, so canonical URLs, the sitemap and OG tags always point at `https://www.laogroceries.in/` — never at the `onrender.com` address, which would otherwise be indexed as a duplicate.

@@ -21,9 +21,10 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
 
 // An online store run by a company, not a walk-in shop: GroceryStore/
 // LocalBusiness would make Google expect a street address customers visit.
+const organizationId = `${site.url}/#organization`;
 const organizationSchema = {
-  "@context": "https://schema.org",
   "@type": "OnlineStore",
+  "@id": organizationId,
   name: site.fullName,
   alternateName: site.name,
   legalName: site.legal.name,
@@ -62,6 +63,23 @@ const organizationSchema = {
   ],
 };
 
+// The site itself, published by the store above (linked by @id): this is
+// what Google reads for the site name shown above a search result.
+const websiteSchema = {
+  "@type": "WebSite",
+  "@id": `${site.url}/#website`,
+  url: site.url,
+  name: site.fullName,
+  alternateName: site.name,
+  inLanguage: "en-IN",
+  publisher: { "@id": organizationId },
+};
+
+const siteGraph = {
+  "@context": "https://schema.org",
+  "@graph": [organizationSchema, websiteSchema],
+};
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -76,12 +94,13 @@ const faqSchema = {
 };
 ---
 
+<!-- First, before any text: the title holds non-ASCII characters (an em dash). -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalURL} />
 
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta charset="utf-8" />
 <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
 <meta name="theme-color" content="#245420" />
 
@@ -107,5 +126,5 @@ const faqSchema = {
 <link rel="icon" type="image/png" sizes="64x64" href={withBase("/favicon-64.png")} />
 <link rel="apple-touch-icon" sizes="180x180" href={withBase("/apple-touch-icon.png")} />
 
-<script type="application/ld+json" is:inline set:html={JSON.stringify(organizationSchema)} />
+<script type="application/ld+json" is:inline set:html={JSON.stringify(siteGraph)} />
 {faq && <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />}
