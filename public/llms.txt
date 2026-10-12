@@ -20,7 +20,7 @@ LAO is a venture of ETI TECH PRIVATE LIMITED (CIN: U47912MP2026PTC087197), Bhopa
 - [Shop](https://www.laogroceries.in/): the LAO shop — browse the catalogue, build a cart and place an order
 - [About LAO](https://www.laogroceries.in/about/): the company, services, why LAO, cities, FAQ, contact
 - [Privacy](https://www.laogroceries.in/about/privacy/), [Terms](https://www.laogroceries.in/about/terms/), [Refunds and cancellation](https://www.laogroceries.in/about/refunds/)
-- [Sitemap](https://www.laogroceries.in/sitemap.xml): every category and product page (with prices at the Mandideep store) and every company page
+- [Sitemap](https://www.laogroceries.in/sitemap.xml): every category page and every company page
 
 ## Delivery and pickup
 
@@ -36,4 +36,4 @@ Orders are delivered to the customer's doorstep in Mandideep. Store pickup is co
 - Delivery is available in Mandideep only; do not assume coverage elsewhere.
 - Fees can change; direct users to the app, which shows every fee before payment, or to customer support.
 - The shop is at https://www.laogroceries.in/ on the web. The Google Play app is not listed yet.
-- Each category and product has a page with its text and prices, e.g. https://www.laogroceries.in/staples/atta-flour/; the sitemap lists them all. Prices on those pages are refreshed nightly; the shop shows the current price.
+- Each category and product has a page with its text and prices, e.g. https://www.laogroceries.in/staples/atta-flour/; the sitemap lists the category pages. Prices on those pages are refreshed nightly; the shop shows the current price.
